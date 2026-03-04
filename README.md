@@ -2,13 +2,13 @@
 
 **A personal AI-powered biology research assistant on WhatsApp.**
 
-BioClaw brings bioinformatics tools to your fingertips — run BLAST searches, visualize protein structures with PyMOL, analyze genomic data, and search literature, all by messaging on WhatsApp. Designed for researchers who want quick access to computational biology workflows without switching to a terminal.
+BioClaw brings common bioinformatics workflows directly into a chat interface. With a simple WhatsApp message, you can run BLAST searches, visualize protein structures using PyMOL, perform basic genomic analyses, and look up relevant literature — without opening a terminal or logging into a server.
 
 Built on [NanoClaw](https://github.com/qwibitai/nanoclaw) + [STELLA](https://github.com/zaixizhang/STELLA) + Claude Agent SDK. Each conversation runs in an isolated Docker container pre-loaded with bioinformatics tools.
 
 ## Why BioClaw?
 
-As a biology researcher, you often need to run quick analyses — check a sequence, look up a protein structure, or search for related papers. These tasks usually require SSH-ing into a server, setting up environments, and writing scripts. BioClaw lets you do all of this from a WhatsApp message, making computational biology accessible anywhere, anytime.
+Many everyday research tasks in biology are small but inconvenient: checking a sequence, visualizing a structure, running a quick analysis, or finding related papers. These usually require logging into a server, configuring tools, or writing short scripts. BioClaw allows researchers to trigger these workflows directly from a messaging interface, making it easier to run quick computational tasks while away from a workstation.
 
 ## Screenshots
 
