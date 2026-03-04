@@ -10,7 +10,11 @@ Built on [NanoClaw](https://github.com/qwibitai/nanoclaw) + [STELLA](https://git
 
 Many everyday research tasks in biology are small but inconvenient: checking a sequence, visualizing a structure, running a quick analysis, or finding related papers. These usually require logging into a server, configuring tools, or writing short scripts. BioClaw allows researchers to trigger these workflows directly from a messaging interface, making it easier to run quick computational tasks while away from a workstation.
 
-## Screenshots
+## Examples
+
+**Demo script (mobile-friendly prompts + 1-6 screenshots):** see `ExampleTask/ExampleTask.md`.
+
+### Example Outputs (Images)
 
 **Protein structure rendering** — Load PDB 1UBQ (Ubiquitin) as a high-res rainbow cartoon:
 
