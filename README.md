@@ -212,7 +212,71 @@ npm start
 
 ### Usage
 
+<<<<<<< HEAD
+```bash
+echo 'ANTHROPIC_API_KEY=your-key-here' > .env
+```
+
+Build the Docker container (includes all bio tools):
+
+```bash
+docker build -t bioclaw-agent:latest container/
+```
+
+Authenticate with WhatsApp (one-time):
+
+```bash
+npx tsx src/whatsapp-auth.ts
+```
+
+Register a WhatsApp group for the bot to respond in:
+
+```bash
+npx tsx scripts/manage-groups.ts register
+```
+
+Start BioClaw:
+
+```bash
+npx tsx src/index.ts
+```
+
+## Second Quick Start
+
+Install from GitHub:
+
+```bash
+git clone https://github.com/Runchuan-BU/BioClaw.git
+cd BioClaw
+npm install
+docker build -t bioclaw-agent:latest container/
+```
+
+If you want the bot name to be `OpenClaw`, set:
+
+```bash
+export ASSISTANT_NAME=OpenClaw
+```
+
+Just send the message to OpenClaw:
+
+```text
+@OpenClaw BLAST this sequence against nr: ATGCGATCGATCG...
+```
+
+### Group Management
+
+```bash
+npx tsx scripts/manage-groups.ts list        # Show registered groups
+npx tsx scripts/manage-groups.ts available    # Show all discovered groups
+npx tsx scripts/manage-groups.ts register     # Register a new group (interactive)
+npx tsx scripts/manage-groups.ts remove <jid> # Remove a group
+```
+
+## How It Works
+=======
 In any WhatsApp group where BioClaw is connected, simply message:
+>>>>>>> origin/main
 
 ```
 @Bioclaw <your request>
