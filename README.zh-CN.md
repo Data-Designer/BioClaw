@@ -46,7 +46,7 @@ BioClaw 将常见的生物信息学任务带到聊天界面中。研究者可以
 - macOS 或 Linux
 - Node.js 20+
 - Docker Desktop
-- Anthropic API Key
+- Anthropic API Key 或 OpenRouter API Key
 
 ### 安装
 
@@ -54,9 +54,49 @@ BioClaw 将常见的生物信息学任务带到聊天界面中。研究者可以
 git clone https://github.com/Runchuan-BU/BioClaw.git
 cd BioClaw
 npm install
-cp .env.example .env
 npm start
 ```
+
+### 模型提供方配置
+
+BioClaw 现在支持两条模型路径：
+
+- **Anthropic**：默认路径，保留原来的 Claude Agent SDK 工作流
+- **OpenRouter / OpenAI-compatible**：可选路径，适合 OpenRouter 或其他兼容 `/chat/completions` 的服务
+
+请在项目根目录创建 `.env`，然后选择以下其中一种配置。
+
+**方案 A：Anthropic（默认）**
+
+```bash
+ANTHROPIC_API_KEY=your_anthropic_key
+```
+
+**方案 B：OpenRouter**
+
+```bash
+MODEL_PROVIDER=openrouter
+OPENROUTER_API_KEY=your_openrouter_key
+OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
+OPENROUTER_MODEL=openai/gpt-5.4
+```
+
+**通用 OpenAI-compatible 配置**
+
+```bash
+MODEL_PROVIDER=openai-compatible
+OPENAI_COMPATIBLE_API_KEY=your_api_key
+OPENAI_COMPATIBLE_BASE_URL=https://your-provider.example/v1
+OPENAI_COMPATIBLE_MODEL=your-model-name
+```
+
+修改 `.env` 后，重启 BioClaw：
+
+```bash
+npm run dev
+```
+
+容器启动后，可以通过 `docker logs <container-name>` 查看当前实际使用的是哪条 provider 路径。
 
 ### 使用
 
@@ -200,4 +240,3 @@ BioClaw/
 ## 许可证
 
 本项目采用 MIT 许可证，详见 [LICENSE](LICENSE)。
-

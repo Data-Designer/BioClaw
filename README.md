@@ -62,7 +62,7 @@ Results — including images, plots, and structured reports — are delivered di
 - macOS or Linux
 - Node.js 20+
 - Docker Desktop
-- Anthropic API key
+- Anthropic API key or OpenRouter API key
 
 ### Installation
 
@@ -74,13 +74,50 @@ cd BioClaw
 # Install dependencies
 npm install
 
-# Configure environment
-cp .env.example .env
-# Edit .env with your Anthropic API key and WhatsApp credentials
-
 # Start BioClaw
 npm start
 ```
+
+### Model Provider Configuration
+
+BioClaw now supports two provider paths:
+
+- **Anthropic** — default, keeps the original Claude Agent SDK flow
+- **OpenRouter / OpenAI-compatible** — optional path for OpenRouter and similar `/chat/completions` providers
+
+Create a `.env` file in the project root and choose **one** of the following setups.
+
+**Option A — Anthropic (default)**
+
+```bash
+ANTHROPIC_API_KEY=your_anthropic_key
+```
+
+**Option B — OpenRouter**
+
+```bash
+MODEL_PROVIDER=openrouter
+OPENROUTER_API_KEY=your_openrouter_key
+OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
+OPENROUTER_MODEL=openai/gpt-5.4
+```
+
+**Generic OpenAI-compatible setup**
+
+```bash
+MODEL_PROVIDER=openai-compatible
+OPENAI_COMPATIBLE_API_KEY=your_api_key
+OPENAI_COMPATIBLE_BASE_URL=https://your-provider.example/v1
+OPENAI_COMPATIBLE_MODEL=your-model-name
+```
+
+After updating `.env`, restart BioClaw:
+
+```bash
+npm run dev
+```
+
+When a container starts, `docker logs <container-name>` will show which provider path is active.
 
 ### Usage
 
