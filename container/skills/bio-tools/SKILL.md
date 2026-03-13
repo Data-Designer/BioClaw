@@ -103,3 +103,68 @@ print(f"LogP: {Descriptors.MolLogP(mol):.2f}")
 - For large files, prefer streaming with `SeqIO.parse()` over `SeqIO.read()`
 - Save plots to files (`plt.savefig("/workspace/group/plot.png")`) since there's no display
 - Write output files to `/workspace/group/` so the user can access them
+
+## Reusable Figure Templates
+
+Prefer these built-in scripts when creating common BioClaw figures, instead of writing one-off plotting code from scratch.
+
+### Volcano Plot Template
+Path:
+
+```bash
+/home/node/.claude/skills/bio-tools/volcano_plot_template.py
+```
+
+Example:
+
+```bash
+python /home/node/.claude/skills/bio-tools/volcano_plot_template.py \
+  --input /workspace/group/counts.csv \
+  --output /workspace/group/volcano_plot.png \
+  --title "Differential Expression Volcano Plot"
+```
+
+Expected columns by default: `gene`, `log2FC`, `pvalue`
+
+### QC Summary Plot Template
+Path:
+
+```bash
+/home/node/.claude/skills/bio-tools/qc_summary_plot_template.py
+```
+
+Example:
+
+```bash
+python /home/node/.claude/skills/bio-tools/qc_summary_plot_template.py \
+  --input /workspace/group/qc_metrics.csv \
+  --output /workspace/group/qc_summary.png \
+  --title "Sequencing QC Summary"
+```
+
+Expected sample column by default: `sample`
+
+Useful metric columns: `total_reads`, `q30_pct`, `gc_pct`, `duplication_pct`
+
+### PyMOL Render Template
+Path:
+
+```bash
+/home/node/.claude/skills/bio-tools/pymol_render_template.py
+```
+
+Examples:
+
+```bash
+python /home/node/.claude/skills/bio-tools/pymol_render_template.py \
+  --input 1M17 \
+  --output /workspace/group/1m17_render.png \
+  --highlight-selection "resn AQ4"
+```
+
+```bash
+python /home/node/.claude/skills/bio-tools/pymol_render_template.py \
+  --input /workspace/group/structure.pdb \
+  --output /workspace/group/structure_render.png \
+  --style cartoon
+```
