@@ -794,6 +794,11 @@ async function runBashTool(command: string, env: Record<string, string | undefin
       shell: '/bin/bash',
     });
 
+    // Log bash output to stderr so it appears in host logs
+    if (stdout.trim() || stderr.trim()) {
+      log(`[bash] ${[stdout.trim(), stderr.trim()].filter(Boolean).join('\n')}`);
+    }
+
     const combined = [stdout, stderr].filter(Boolean).join(stderr && stdout ? '\n' : '');
     return truncateOutput(combined || 'Command completed with no output.');
   } catch (err) {
