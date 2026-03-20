@@ -67,21 +67,24 @@ Results — including images, plots, and structured reports — are delivered di
 
 ### Installation
 
+**One-command setup** (recommended for first-time users):
+
 ```bash
-# Clone the repository
 git clone https://github.com/Runchuan-BU/BioClaw.git
 cd BioClaw
+bash setup.sh
+```
 
-# Install dependencies
+The setup script will check prerequisites, install dependencies, build the Docker image, and walk you through API key configuration interactively.
+
+**Manual setup:**
+
+```bash
+git clone https://github.com/Runchuan-BU/BioClaw.git
+cd BioClaw
 npm install
-
-# Configure environment (edit with your API keys — see model section below)
-cp .env.example .env
-
-# First time only: build the agent Docker image
+cp .env.example .env        # Edit with your API keys (see model section below)
 docker build -t bioclaw-agent:latest container/
-
-# Start BioClaw (WhatsApp: scan the QR code printed in the terminal on first run)
 npm start
 ```
 
@@ -142,7 +145,7 @@ In any connected chat, simply message:
 
 Supported platforms include **WhatsApp** (default), **WeCom**, **Discord**, **Slack** (Socket Mode), and optional **local web** (browser) chat. Full setup steps, env vars, and disabling channels are in **[docs/CHANNELS.md](docs/CHANNELS.md)** (简体中文：[docs/CHANNELS.zh-CN.md](docs/CHANNELS.zh-CN.md)).
 
-Optional **Lab trace dashboard** (SSE timeline, workspace tree): set `ENABLE_DASHBOARD=true`. With **local web** enabled it is served on the same port at **`/dashboard`**; otherwise it uses **`DASHBOARD_PORT`** on its own. See **[docs/DASHBOARD.md](docs/DASHBOARD.md)**.
+**Lab trace** (SSE timeline, workspace tree) is built into the local web UI — no extra config needed. See **[docs/DASHBOARD.md](docs/DASHBOARD.md)**.
 
 ## Second Quick Start
 
@@ -301,12 +304,28 @@ The bioinformatics tool suite and domain-specific skills — including sequence 
 | **scanpy** | Single-cell RNA-seq analysis |
 | **pysam** | SAM/BAM file access from Python |
 
+## Scripts
+
+All utility scripts are in the `scripts/` directory:
+
+| Command | Script | Description |
+|---------|--------|-------------|
+| `bash setup.sh` | `scripts/setup.sh` | One-command setup: checks Node.js, installs deps, builds Docker image, configures `.env` |
+| `npm run web` | `scripts/start-web.mjs` | Start BioClaw with local web UI (chat + lab trace) |
+| `npm run open:web` | `scripts/open-local-web.mjs` | Open the web UI in default browser |
+| `npm run stop:web` | `scripts/stop-bioclaw-web.mjs` | Stop the web server process |
+| `bash scripts/clear-local-web.sh` | `scripts/clear-local-web.sh` | Clear all local-web chat history and trace events |
+| `npx tsx scripts/test-cli.ts "prompt"` | `scripts/test-cli.ts` | Run a single prompt through the container agent (CLI test) |
+| `npx tsx scripts/manage-groups.ts list` | `scripts/manage-groups.ts` | Manage WhatsApp group registrations (list / register / remove) |
+| `python3 scripts/demo.py` | `scripts/demo.py` | TP53 gene analysis demo (runs inside container) |
+
 ## Project Structure
 
 ```
 BioClaw/
 ├── src/                       # Node orchestrator
 ├── container/                 # Agent image + runner
+├── scripts/                   # Utility scripts (setup, web, testing)
 ├── groups/                    # Per-group workspace & CLAUDE.md
 ├── docs/
 │   ├── CHANNELS.md            # Messaging platform setup (EN)

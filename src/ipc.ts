@@ -142,6 +142,19 @@ export function startIpcWatcher(deps: IpcDeps): void {
                     'Unauthorized IPC image attempt blocked',
                   );
                 }
+              } else if (data.type === 'agent_step') {
+                recordAgentTraceEvent({
+                  group_folder: sourceGroup,
+                  chat_jid: data.chatJid ?? null,
+                  session_id: null,
+                  type: `agent_${data.stepType}`,
+                  payload: {
+                    stepType: data.stepType,
+                    text: data.text ?? null,
+                    toolName: data.toolName ?? null,
+                    toolInput: data.toolInput ?? null,
+                  },
+                });
               }
               fs.unlinkSync(filePath);
             } catch (err) {

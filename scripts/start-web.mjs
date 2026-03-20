@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Start BioClaw with browser UI: Local Web + Lab trace dashboard on the same port.
- * Loads .env from project root, then forces ENABLE_LOCAL_WEB=true and ENABLE_DASHBOARD=true.
+ * Start BioClaw with browser UI: Local Web + Lab trace on the same port.
+ * Loads .env from project root, then forces ENABLE_LOCAL_WEB=true.
  *
  * Usage (from repo root): npm run web
  */
@@ -26,7 +26,6 @@ if (!fs.existsSync(tsxCli)) {
 const env = {
   ...process.env,
   ENABLE_LOCAL_WEB: 'true',
-  ENABLE_DASHBOARD: 'true',
 };
 
 const host = env.LOCAL_WEB_HOST || 'localhost';

@@ -172,7 +172,7 @@ export function getMessagesSince(
   const sql = `
     SELECT id, chat_jid, sender, sender_name, content, timestamp
     FROM messages
-    WHERE chat_jid = ? AND timestamp > ? AND content NOT LIKE ?
+    WHERE chat_jid = ? AND timestamp > ? AND is_from_me = 0 AND content NOT LIKE ?
     ORDER BY timestamp
   `;
   return db

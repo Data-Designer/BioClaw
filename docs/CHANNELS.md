@@ -105,15 +105,13 @@ Useful when you want a **local HTTP chat** without WhatsApp (e.g. on Windows or 
    npm run web
    ```
 
-   This runs BioClaw with **`ENABLE_LOCAL_WEB=true`** and **`ENABLE_DASHBOARD=true`** — **chat and lab trace on the same page** at **`/`** (tabs or split layout: **trace / workflow on the left**, **chat on the right** when wide). It still loads the rest of your `.env` (model keys, other channels, etc.).
-
-   Equivalent to `npm run dev` if you already set those two flags in `.env`.
+   This runs BioClaw with **`ENABLE_LOCAL_WEB=true`** — **chat and lab trace on the same page** at **`/`** (tabs or split layout: **trace / workflow on the left**, **chat on the right** when wide). It still loads the rest of your `.env` (model keys, other channels, etc.).
 
 3. Open **`http://localhost:3000/`** (or your `LOCAL_WEB_HOST` / `LOCAL_WEB_PORT`).
 
 To free the web port: **`npm run stop:web`**. Optional: **`npm run open:web`** only opens the browser (does not start the server).
 
-The built-in page is a **lab-style UI** with **SSE** for messages (`/api/events`) and, when **`ENABLE_DASHBOARD=true`**, **lab trace** on the same URL (`/`) with **`/api/trace/*`** and **`/api/workspace/*`**. Open **Settings** (gear) for **English / 中文** and theme (`localStorage`). See [DASHBOARD.md](DASHBOARD.md).
+The built-in page is a **lab-style UI** with **SSE** for messages (`/api/events`) and **lab trace** on the same URL (`/`) with **`/api/trace/*`** and **`/api/workspace/*`**. Open **Settings** (gear) for **English / 中文** and theme (`localStorage`). See [DASHBOARD.md](DASHBOARD.md).
 
 Optional: `LOCAL_WEB_SECRET` to require a shared secret on the webhook.
 

@@ -7,7 +7,6 @@ import { execSync } from 'child_process';
 
 import {
   ASSISTANT_NAME,
-  ENABLE_DASHBOARD,
   ENABLE_LOCAL_WEB,
   ENABLE_WHATSAPP,
   IDLE_TIMEOUT,
@@ -44,7 +43,6 @@ import {
   setLastAgentTimestampFor,
 } from './session-manager.js';
 import { startSchedulerLoop } from './task-scheduler.js';
-import { startDashboardServer, stopDashboardServer } from './dashboard/server.js';
 import { LocalWebChannel } from './channels/local-web/channel.js';
 import { WhatsAppChannel } from './channels/whatsapp/channel.js';
 import { WeComChannel } from './channels/wecom.js';
@@ -222,7 +220,6 @@ async function main(): Promise<void> {
   const shutdown = async (signal: string) => {
     logger.info({ signal }, 'Shutdown signal received');
     await queue.shutdown(10000);
-    await stopDashboardServer();
     await Promise.all(channels.map((ch) => ch.disconnect()));
     process.exit(0);
   };
@@ -279,11 +276,6 @@ async function main(): Promise<void> {
     const slack = new SlackChannel({ botToken: process.env.SLACK_BOT_TOKEN, appToken: process.env.SLACK_APP_TOKEN, ...channelCallbacks });
     channels.push(slack);
     try { await slack.connect(); } catch (err) { logger.error({ err }, 'Slack connection failed'); }
-  }
-
-  if (ENABLE_DASHBOARD) {
-    if (ENABLE_LOCAL_WEB) { logger.info({ url: `http://${LOCAL_WEB_HOST}:${LOCAL_WEB_PORT}/` }, 'Unified web UI'); }
-    else { try { await startDashboardServer(); } catch (err) { logger.error({ err }, 'Dashboard failed'); } }
   }
 
   // --- Subsystems ---

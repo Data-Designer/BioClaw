@@ -37,3 +37,15 @@ try {
 if (killed === 0) {
   console.log(`No process listening on port ${port}.`);
 }
+
+// Also stop any running bioclaw containers so the next start uses a fresh image
+try {
+  const ids = execSync('docker ps -q --filter name=bioclaw', { encoding: 'utf8' }).trim();
+  if (ids) {
+    const count = ids.split(/\s+/).length;
+    execSync(`docker stop ${ids.split(/\s+/).join(' ')}`, { timeout: 15000 });
+    console.log(`Stopped ${count} bioclaw container(s).`);
+  }
+} catch {
+  /* no containers or docker not available */
+}

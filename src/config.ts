@@ -19,11 +19,7 @@ export const LOCAL_WEB_GROUP_FOLDER =
   process.env.LOCAL_WEB_GROUP_FOLDER || 'local-web';
 export const LOCAL_WEB_SECRET = process.env.LOCAL_WEB_SECRET || '';
 
-/** MolClaw-style observability: separate HTTP port + SSE (see docs/DASHBOARD.md) */
-export const ENABLE_DASHBOARD = process.env.ENABLE_DASHBOARD === 'true';
-export const DASHBOARD_HOST = process.env.DASHBOARD_HOST || 'localhost';
-export const DASHBOARD_PORT = parseInt(process.env.DASHBOARD_PORT || '8787', 10);
-/** If set, require Authorization: Bearer <token> or ?token= on dashboard routes */
+/** If set, require Authorization: Bearer <token> or ?token= on trace API routes */
 export const DASHBOARD_TOKEN = process.env.DASHBOARD_TOKEN || '';
 
 // Absolute paths needed for container mounts

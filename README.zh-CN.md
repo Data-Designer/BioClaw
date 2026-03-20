@@ -51,17 +51,25 @@ BioClaw 将常见的生物信息学任务带到聊天界面中。研究者可以
 
 ### 安装
 
+**一键安装**（推荐新手使用）：
+
+```bash
+git clone https://github.com/Runchuan-BU/BioClaw.git
+cd BioClaw
+bash setup.sh
+```
+
+安装脚本会自动检查环境、安装依赖、构建 Docker 镜像，并引导你配置 API 密钥。
+
+**手动安装：**
+
 ```bash
 git clone https://github.com/Runchuan-BU/BioClaw.git
 cd BioClaw
 npm install
-cp .env.example .env
-# 编辑 .env，至少配置模型提供方密钥（见下文）
-
-# 首次需要构建 Agent 镜像
+cp .env.example .env        # 编辑 .env，配置模型提供方密钥（见下文）
 docker build -t bioclaw-agent:latest container/
-
-npm start   # WhatsApp：首次运行请在终端扫描二维码
+npm start                    # WhatsApp：首次运行请在终端扫描二维码
 ```
 
 ### 模型提供方配置
@@ -123,7 +131,7 @@ npm run dev
 
 英文版通道文档：[docs/CHANNELS.md](docs/CHANNELS.md)。
 
-可选 **Lab trace 观测**（SSE 时间线、工作区树）：`.env` 中 `ENABLE_DASHBOARD=true`。与本地网页同时开启时与聊天**同一页**（`/`）；仅开观测面板时用独立 `DASHBOARD_PORT`。说明见 [docs/DASHBOARD.md](docs/DASHBOARD.md)。
+**Lab trace 观测**（SSE 时间线、工作区树）已内置于本地网页界面，无需额外配置。说明见 [docs/DASHBOARD.md](docs/DASHBOARD.md)。
 
 ### Second Quick Start
 
@@ -176,12 +184,28 @@ BioClaw 基于 NanoClaw 的容器化架构，并融合 STELLA 的生物医学能
 - scanpy
 - pysam
 
+## 实用脚本
+
+所有脚本位于 `scripts/` 目录：
+
+| 命令 | 脚本 | 说明 |
+|------|------|------|
+| `bash setup.sh` | `scripts/setup.sh` | 一键安装：检查环境、安装依赖、构建镜像、配置密钥 |
+| `npm run web` | `scripts/start-web.mjs` | 启动 BioClaw 本地 Web 界面（聊天 + 实验追踪） |
+| `npm run open:web` | `scripts/open-local-web.mjs` | 用默认浏览器打开 Web 界面 |
+| `npm run stop:web` | `scripts/stop-bioclaw-web.mjs` | 停止 Web 服务进程 |
+| `bash scripts/clear-local-web.sh` | `scripts/clear-local-web.sh` | 清空本地 Web 聊天记录和追踪事件 |
+| `npx tsx scripts/test-cli.ts "prompt"` | `scripts/test-cli.ts` | 单次 CLI 测试：发送一个 prompt 到容器 |
+| `npx tsx scripts/manage-groups.ts list` | `scripts/manage-groups.ts` | 管理 WhatsApp 群组注册（list / register / remove） |
+| `python3 scripts/demo.py` | `scripts/demo.py` | TP53 基因分析演示（容器内运行） |
+
 ## 项目结构
 
 ```text
 BioClaw/
 ├── src/                   # Node.js 编排器
 ├── container/             # Agent 镜像与运行器
+├── scripts/               # 实用脚本（安装、Web、测试）
 ├── groups/                # 各群工作区与 CLAUDE.md
 ├── docs/
 │   ├── CHANNELS.md        # 消息通道（英文）
